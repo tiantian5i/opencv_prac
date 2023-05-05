@@ -4,11 +4,11 @@ from matplotlib import pyplot as plt
 
 img = cv.imread('Images/R.jpg')
 
-# 100，100的像素值，向量
+# 100,100的像素值,向量
 px = img[100, 100]
 print(px)       # BGR
 
-# 100，100的像素值，单个
+# 100,100的像素值,单个
 blue = img[100, 100, 0]
 green = img[100, 100, 1]
 red = img[100, 100, 2]
@@ -50,8 +50,25 @@ cv.destroyAllWindows()
 
 b, g, r = cv.split(img)         # 分离颜色通道
 img = cv.merge((r, g, b))       # 改变颜色通道为RGB
-pon='bicubic')   # plt默认RGB
-plt.xticks([]), plt.yticks([])lt.imshow(img, cmap='gray', interpolati
+plt.imshow(img, cmap='gray', interpolation='bicubic')   # plt默认RGB
+plt.xticks([]), plt.yticks([])
 plt.show()
 
-plt.subplot(1), plt.imshow(img,)
+
+
+
+top_size, bottom_size, left_size, right_size = (50, 50, 50, 50)
+replicate = cv.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, borderType=cv.BORDER_REPLICATE)    # 复制最边缘像素
+reflect = cv.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv.BORDER_REFLECT)
+reflect101 = cv.copyMakeBorder(img, top_size, bottom_size,left_size, right_size, cv.BORDER_REFLECT_101)
+wrap = cv.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv.BORDER_WRAP)
+constant = cv.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv.BORDER_CONSTANT, value=0)        # 常数值填充，此处0为黑边
+
+plt.subplot(231), plt.imshow(img, 'gray'), plt.title('ORIGINAL')
+plt.subplot(232), plt.imshow(replicate, 'gray'), plt.title('REPLICATE')
+plt.subplot(233), plt.imshow(reflect, 'gray'), plt.title('REFLECT')
+plt.subplot(234), plt.imshow(reflect101, 'gray'), plt.title('REFLECT_101')
+plt.subplot(235), plt.imshow(wrap, 'gray'), plt.title('WRAP')
+plt.subplot(236), plt.imshow(constant, 'gray'), plt. title('CONSTANT')
+plt.show()
+
