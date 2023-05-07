@@ -22,6 +22,22 @@ opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
 # 闭运算：先膨胀，再腐蚀
 closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 
+# 梯度运算=膨胀-腐蚀
+gardient = cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
+cv2.imshow('gardient', gardient)
+cv2.waitKey()
+
+# 礼帽 原始输入-开运算结果
+tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
+cv2.imshow('tophat', tophat)
+cv2.waitKey()
+
+# 黑帽 闭运算-原始输入
+blackhat = cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, kernel)
+cv2.imshow('blackhat', blackhat)
+cv2.waitKey()
+
+
 # 显示
 res = np.hstack((erosion, dilation, opening, closing))
 cv2.imshow("combination", res)
